@@ -12,5 +12,6 @@
     <modules>
         <module>java-demo</module>
         <module>thor-spring-mvc</module>
+        <module>miaosha</module>
     </modules>
 </project>
