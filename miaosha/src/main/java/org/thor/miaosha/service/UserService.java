@@ -1,16 +1,35 @@
 package org.thor.miaosha.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.thor.miaosha.dao.UserDao;
 import org.thor.miaosha.entity.User;
 
-/**
- * @Description:
- * @Author: wangyiqiang
- * @Date: 2020-02-12 上午7:39
- * @Version: V1.0
- */
-public interface UserService {
 
-    User getById(Integer id);
+@Service
+public class UserService {
+	
+	@Autowired
+	UserDao userDao;
+	
+	public User getById(int id) {
+		 return userDao.getById(id);
+	}
 
-    int insert();
+	@Transactional
+	public boolean tx() {
+		User u1= new User();
+		u1.setId(2);
+		u1.setName("2222");
+		userDao.insert(u1);
+		
+		User u2= new User();
+		u2.setId(1);
+		u2.setName("11111");
+		userDao.insert(u2);
+		
+		return true;
+	}
+	
 }

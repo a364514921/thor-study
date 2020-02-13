@@ -65,8 +65,7 @@ public class DemoController {
     @RequestMapping("/insert")
     @ResponseBody
     public Result<String> testTransactional() {
-        int userId = userService.insert();
-        return Result.success("操作成功，ID：" + userId);
+        return Result.success("操作成功，ID：" );
     }
 
     @RequestMapping("/redis/set")
