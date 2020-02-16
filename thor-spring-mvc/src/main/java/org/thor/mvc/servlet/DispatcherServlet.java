@@ -113,11 +113,6 @@ public class DispatcherServlet extends HttpServlet {
         }
     }
 
-    @Override
-    public void destroy() {
-        super.destroy();
-    }
-
     /**
      * 根据一个基础包进行扫描，扫描包及子包下的所有类
      */
@@ -129,7 +124,7 @@ public class DispatcherServlet extends HttpServlet {
         File fileDir = new File(pathDir);
         // 该路径下所有文件
         String[] filesStr = fileDir.list();
-        // 获取包下所有class类
+        // 递归获取包下所有class类
         for (String path : filesStr) {
             File filePath = new File(pathDir + path);
             if (filePath.isDirectory()) {
@@ -208,8 +203,8 @@ public class DispatcherServlet extends HttpServlet {
                 for (Field field : fields) {
                     if (field.isAnnotationPresent(ThorAutowired.class)) {
                         // 拿到@ThorAutowired("DemoServiceImpl")里的指定要注入的bean名字"demoService"
-                        ThorAutowired qualifier = field.getAnnotation(ThorAutowired.class);
-                        String beanName = qualifier.value();
+                        ThorAutowired autowired = field.getAnnotation(ThorAutowired.class);
+                        String beanName = autowired.value();
                         // 授权
                         field.setAccessible(true);
                         try {
